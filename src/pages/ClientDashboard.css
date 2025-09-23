@@ -278,6 +278,13 @@
   justify-content: center;
 }
 
+/* Mobile: Visuel hero plus petit */
+@media (max-width: 768px) {
+  .hero-visual {
+    height: 250px;
+  }
+}
+
 .hero-circle {
   width: 300px;
   height: 300px;
@@ -286,6 +293,14 @@
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   animation: pulse 4s ease-in-out infinite;
+}
+
+/* Mobile: Cercle plus petit */
+@media (max-width: 768px) {
+  .hero-circle {
+    width: 180px;
+    height: 180px;
+  }
 }
 
 @keyframes pulse {
@@ -332,6 +347,24 @@
   left: 35%;
   animation-delay: 4s;
   animation-duration: 16s;
+}
+
+/* Mobile: Bulles plus petites */
+@media (max-width: 768px) {
+  .bubble-1 {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .bubble-2 {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .bubble-3 {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .bubble-4 {

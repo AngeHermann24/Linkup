@@ -44,16 +44,39 @@
   gap: 0.5rem;
 }
 
+/* Mobile: Titre planning plus petit */
+@media (max-width: 768px) {
+  .planning-title h2 {
+    font-size: 1.5rem;
+  }
+}
+
 .planning-title p {
   color: #6b7280;
   margin: 0;
   font-size: 1.1rem;
 }
 
+/* Mobile: Description plus petite */
+@media (max-width: 768px) {
+  .planning-title p {
+    font-size: 1rem;
+  }
+}
+
 .planning-controls {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+/* Mobile: Contrôles responsive */
+@media (max-width: 768px) {
+  .planning-controls {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
 }
 
 .view-toggle {
@@ -72,6 +95,14 @@
   cursor: pointer;
   transition: all 0.3s ease;
   color: #6b7280;
+}
+
+/* Mobile: Boutons plus compacts */
+@media (max-width: 768px) {
+  .toggle-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
 }
 
 .toggle-btn.active {
