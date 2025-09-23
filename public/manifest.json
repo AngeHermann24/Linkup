@@ -1,0 +1,31 @@
+{
+  "name": "Linkup - Trouvez le prestataire parfait",
+  "short_name": "Linkup",
+  "description": "Plateforme de mise en relation entre clients et prestataires de services en Côte d'Ivoire",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/Linkup lo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "fr",
+  "dir": "ltr"
+}

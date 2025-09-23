@@ -1,0 +1,128 @@
+.App {
+  min-height: 100vh;
+}
+
+/* Styles globaux pour les boutons CTA */
+.cta-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+}
+
+.cta-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+}
+
+.cta-button.secondary {
+  background: white;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+}
+
+.cta-button.secondary:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+}
+
+.cta-button.large {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* Styles pour les sections */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Animations globales */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-20px) rotate(2deg); 
+  }
+}
+
+/* Scroll smooth */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .cta-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  
+  .cta-button.large {
+    padding: 0.8rem 1.6rem;
+    font-size: 1rem;
+  }
+}
