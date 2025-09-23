@@ -248,7 +248,7 @@
 /* Mobile: Image plus petite */
 @media (max-width: 768px) {
   .service-image {
-    height: 120px;
+    height: 80px;
   }
 }
 
@@ -301,7 +301,7 @@
 /* Mobile: Contenu plus compact */
 @media (max-width: 768px) {
   .service-content {
-    padding: 1.25rem;
+    padding: 0.75rem;
   }
 }
 

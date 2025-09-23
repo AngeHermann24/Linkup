@@ -4,13 +4,14 @@
 }
 
 .dashboard-header {
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 0.75rem 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1.25rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
 }
 
 .dashboard-nav {
@@ -56,10 +57,14 @@
 }
 
 .dashboard-logo .logo-image {
-  width: 120px;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.3));
+  height: 45px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
 }
 
 /* Mobile: Logo plus petit */
@@ -243,14 +248,21 @@
 }
 
 .user-name {
-  font-weight: 600;
+  font-weight: 700;
   color: #1f2937;
   font-size: 1rem;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .user-role {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Mobile: Textes utilisateur plus petits */
@@ -565,10 +577,13 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .dashboard-header {
+    padding: 1rem 0;
+  }
+  
   .dashboard-nav {
     padding: 0 1rem;
-    flex-direction: column;
-    gap: 1rem;
+    flex-wrap: wrap;
   }
   
   .dashboard-content {
