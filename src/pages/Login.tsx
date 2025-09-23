@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import './Auth.css'
 
 const Login = () => {
+  // Version 1.0.2 - Ultra mobile optimizations
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
