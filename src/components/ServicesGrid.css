@@ -245,6 +245,13 @@
   overflow: hidden;
 }
 
+/* Mobile: Image plus petite */
+@media (max-width: 768px) {
+  .service-image {
+    height: 120px;
+  }
+}
+
 .service-image img {
   width: 100%;
   height: 100%;
@@ -265,6 +272,13 @@
   background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
   font-size: 4rem;
   color: #3b82f6;
+}
+
+/* Mobile: Icône plus petite */
+@media (max-width: 768px) {
+  .service-icon {
+    font-size: 2.5rem;
+  }
 }
 
 .service-badge {
@@ -301,6 +315,14 @@
   color: #1f2937;
   margin: 0 0 0.5rem 0;
   line-height: 1.3;
+}
+
+/* Mobile: Titre plus petit */
+@media (max-width: 768px) {
+  .service-title {
+    font-size: 1rem;
+    margin: 0 0 0.25rem 0;
+  }
 }
 
 .service-category {
@@ -357,6 +379,13 @@
   margin-bottom: 1.5rem;
 }
 
+/* Mobile: Détails plus compacts */
+@media (max-width: 768px) {
+  .service-details {
+    margin-bottom: 1rem;
+  }
+}
+
 .service-price {
   display: flex;
   flex-direction: column;
@@ -367,6 +396,13 @@
   font-size: 1.25rem;
   font-weight: 700;
   color: #059669;
+}
+
+/* Mobile: Prix plus petit */
+@media (max-width: 768px) {
+  .price-amount {
+    font-size: 1rem;
+  }
 }
 
 .price-type {
@@ -402,6 +438,14 @@
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.875rem;
+}
+
+/* Mobile: Boutons plus compacts */
+@media (max-width: 768px) {
+  .view-details-btn, .order-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
 }
 
 .view-details-btn {
