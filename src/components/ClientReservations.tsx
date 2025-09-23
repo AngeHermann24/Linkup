@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useRequests } from '../hooks/useRequests'
-import { useAuth } from '../contexts/AuthContext'
 import './ClientReservations.css'
 
 const ClientReservations = () => {
@@ -230,8 +229,8 @@ const ClientReservations = () => {
                     <div className="provider-contact">
                       <div className="contact-item">
                         <span className="contact-label">📞 Téléphone :</span>
-                        <a href={`tel:${request.provider_response || request.client_phone}`} className="contact-value phone-link">
-                          {request.provider_response || request.client_phone || 'Non renseigné'}
+                        <a href={`tel:${request.provider_response || request.phone}`} className="contact-value phone-link">
+                          {request.provider_response || request.phone || 'Non renseigné'}
                         </a>
                       </div>
                       <div className="contact-note">
