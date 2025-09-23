@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import SupabaseTest from '../components/SupabaseTest'
 import './Auth.css'
 
 const Login = () => {
@@ -140,9 +139,7 @@ const Login = () => {
           </Link>
         </div>
       </div>
-      
-      {/* Composant de test Supabase */}
-      <SupabaseTest />
+
     </div>
   )
 }
