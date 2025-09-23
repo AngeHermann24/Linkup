@@ -4,21 +4,16 @@ import { useAuth } from '../contexts/AuthContext'
 import './ClientReservations.css'
 
 const ClientReservations = () => {
-  const { profile } = useAuth()
   const { 
     requests, 
     notifications, 
     loading, 
     error, 
     unreadCount,
-    pendingRequests,
-    acceptedRequests,
-    completedRequests,
     markNotificationsRead
   } = useRequests()
 
   const [selectedTab, setSelectedTab] = useState<'all' | 'pending' | 'accepted' | 'completed' | 'refused'>('all')
-  const [selectedRequest, setSelectedRequest] = useState<string | null>(null)
 
   const getFilteredRequests = () => {
     switch (selectedTab) {
@@ -235,8 +230,8 @@ const ClientReservations = () => {
                     <div className="provider-contact">
                       <div className="contact-item">
                         <span className="contact-label">📞 Téléphone :</span>
-                        <a href={`tel:${request.provider_phone || request.client_phone_profile}`} className="contact-value phone-link">
-                          {request.provider_phone || request.client_phone_profile || 'Non renseigné'}
+                        <a href={`tel:${request.provider_response || request.client_phone}`} className="contact-value phone-link">
+                          {request.provider_response || request.client_phone || 'Non renseigné'}
                         </a>
                       </div>
                       <div className="contact-note">

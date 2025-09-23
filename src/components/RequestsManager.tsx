@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import { useRequests } from '../hooks/useRequests'
-import { useAuth } from '../contexts/AuthContext'
 import './RequestsManager.css'
 
 const RequestsManager = () => {
-  const { profile } = useAuth()
   const { 
     requests, 
     notifications, 

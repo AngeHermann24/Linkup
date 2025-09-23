@@ -10,8 +10,7 @@ const Planning = () => {
     error, 
     stats, 
     toggleSlotAvailability, 
-    refreshSchedule,
-    generateDefaultAvailability 
+    refreshSchedule
   } = usePlanning()
 
   // Gestion des erreurs et chargement
@@ -39,14 +38,7 @@ const Planning = () => {
     )
   }
 
-  const handleSlotClick = async (dayIndex: number, slotIndex: number) => {
-    const day = weekSchedule[dayIndex]
-    const slot = day.slots[slotIndex]
-    
-    if (!slot.booking) {
-      await toggleSlotAvailability(day.date, slot.start_time)
-    }
-  }
+
 
   return (
     <div className="planning-container">
@@ -117,7 +109,7 @@ const Planning = () => {
               })}
             </div>
             
-            {weekSchedule.map((day, dayIndex) => (
+            {weekSchedule.map((day) => (
               <div key={day.date} className="day-column">
                 <div className="day-header">
                   <div className="day-name">{day.dayName}</div>
@@ -125,26 +117,26 @@ const Planning = () => {
                 </div>
                 
                 <div className="day-slots">
-                  {day.slots.map((slot, slotIndex) => (
+                  {day.slots.map((slot) => (
                     <div
                       key={slot.id}
                       className={`time-slot ${
-                        slot.booked ? 'booked' : 
-                        slot.available ? 'available' : 'unavailable'
+                        slot.booking ? 'booked' : 
+                        slot.is_available ? 'available' : 'unavailable'
                       }`}
-                      onClick={() => toggleSlotAvailability(dayIndex, slotIndex)}
+                      onClick={() => toggleSlotAvailability(day.date, slot.start_time)}
                       title={
-                        slot.booked 
-                          ? `${slot.booked.clientName} - ${slot.booked.service}`
-                          : slot.available 
+                        slot.booking 
+                          ? `${slot.booking.client_name} - ${slot.booking.service_type}`
+                          : slot.is_available 
                             ? 'Disponible - Cliquez pour rendre indisponible'
                             : 'Indisponible - Cliquez pour rendre disponible'
                       }
                     >
-                      {slot.booked && (
+                      {slot.booking && (
                         <div className="booking-info">
-                          <div className="client-name">{slot.booked.clientName}</div>
-                          <div className="service-name">{slot.booked.service}</div>
+                          <div className="client-name">{slot.booking.client_name}</div>
+                          <div className="service-name">{slot.booking.service_type}</div>
                         </div>
                       )}
                     </div>
