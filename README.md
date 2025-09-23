@@ -2,6 +2,9 @@
 
 Linkup est une plateforme moderne qui connecte les clients avec des prestataires de services qualifiés. L'application permet aux utilisateurs de réserver des services facilement et aux prestataires de gérer leur activité.
 
+## 📱 Optimisation Mobile
+L'application est entièrement optimisée pour mobile avec un design responsive et un menu hamburger intuitif.
+
 ## 🚀 Fonctionnalités
 
 ### Pour les Clients
