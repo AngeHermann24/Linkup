@@ -5,6 +5,8 @@ Linkup est une plateforme moderne qui connecte les clients avec des prestataires
 ## 📱 Optimisation Mobile
 L'application est entièrement optimisée pour mobile avec un design responsive et un menu hamburger intuitif.
 
+**Version actuelle : 1.0.2** - Cartes ultra-compactes et header professionnel
+
 ## 🚀 Fonctionnalités
 
 ### Pour les Clients
