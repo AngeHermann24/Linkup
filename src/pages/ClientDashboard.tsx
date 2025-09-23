@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Link } from 'react-router-dom'
 import ServicesGrid from '../components/ServicesGrid'
@@ -6,6 +7,7 @@ import './ClientDashboard.css'
 
 const ClientDashboard = () => {
   const { profile, signOut } = useAuth()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const handleSignOut = async () => {
     await signOut()
@@ -19,17 +21,38 @@ const ClientDashboard = () => {
             <img src="/Linkup lo.png" alt="Linkup" className="logo-image" />
           </Link>
           
-          <nav className="dashboard-menu">
-            <Link to="/dashboard/client" className="nav-item active">
+          {/* Bouton hamburger pour mobile */}
+          <button 
+            className="mobile-menu-toggle"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
+          <nav className={`dashboard-menu ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+            <Link 
+              to="/dashboard/client" 
+              className="nav-item active"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
               🏠 Accueil
             </Link>
             <button 
-              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => {
+                document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })
+                setIsMobileMenuOpen(false)
+              }}
               className="nav-item nav-button"
             >
               🔍 Services
             </button>
-            <Link to="/reservations" className="nav-item">
+            <Link 
+              to="/reservations" 
+              className="nav-item"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
               📅 Mes Réservations
             </Link>
           </nav>

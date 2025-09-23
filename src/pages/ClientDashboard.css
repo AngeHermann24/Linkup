@@ -16,6 +16,15 @@
   align-items: center;
 }
 
+/* Mobile: Hero section adaptée */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 1rem;
+    height: auto;
+    min-height: 80vh;
+  }
+}
+
 .hero-section::before {
   content: '';
   position: absolute;
@@ -43,6 +52,15 @@
   z-index: 2;
 }
 
+/* Mobile: Hero content en colonne */
+@media (max-width: 768px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+}
+
 .hero-text {
   color: #1f2937;
 }
@@ -53,6 +71,15 @@
   gap: 1rem;
   margin-bottom: 2rem;
   font-size: 1.25rem;
+}
+
+/* Mobile: Greeting plus compact */
+@media (max-width: 768px) {
+  .greeting {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
 }
 
 .greeting-text {
@@ -87,6 +114,15 @@
   letter-spacing: -0.02em;
 }
 
+/* Mobile: Titre hero plus petit */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.25rem;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+  }
+}
+
 .highlight {
   background: linear-gradient(45deg, #3b82f6, #1d4ed8);
   -webkit-background-clip: text;
@@ -115,9 +151,25 @@
   font-weight: 300;
 }
 
+/* Mobile: Description plus compacte */
+@media (max-width: 768px) {
+  .hero-description {
+    font-size: 1rem;
+    margin: 0 0 2rem 0;
+  }
+}
+
 .hero-stats {
   display: flex;
   gap: 3rem;
+}
+
+/* Mobile: Stats en colonne */
+@media (max-width: 768px) {
+  .hero-stats {
+    gap: 1.5rem;
+    justify-content: center;
+  }
 }
 
 .stat-item {
@@ -135,6 +187,13 @@
   margin-bottom: 0.5rem;
 }
 
+/* Mobile: Nombres plus petits */
+@media (max-width: 768px) {
+  .stat-number {
+    font-size: 1.75rem;
+  }
+}
+
 .stat-label {
   font-size: 0.875rem;
   opacity: 0.8;
@@ -143,9 +202,23 @@
   letter-spacing: 0.5px;
 }
 
+/* Mobile: Labels plus petits */
+@media (max-width: 768px) {
+  .stat-label {
+    font-size: 0.75rem;
+  }
+}
+
 /* Bouton de scroll */
 .scroll-to-services {
   margin-top: 3rem;
+}
+
+/* Mobile: Section scroll plus compacte */
+@media (max-width: 768px) {
+  .scroll-to-services {
+    margin-top: 2rem;
+  }
 }
 
 .scroll-button {
@@ -163,6 +236,15 @@
   gap: 1rem;
   font-size: 1rem;
   animation: bounce 2s ease-in-out infinite;
+}
+
+/* Mobile: Bouton plus compact */
+@media (max-width: 768px) {
+  .scroll-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    gap: 0.75rem;
+  }
 }
 
 .scroll-button:hover {

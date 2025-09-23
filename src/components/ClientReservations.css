@@ -6,6 +6,13 @@
   min-height: 100vh;
 }
 
+/* Mobile: Container plus compact */
+@media (max-width: 768px) {
+  .reservations-container {
+    padding: 1rem;
+  }
+}
+
 .reservations-header {
   display: flex;
   justify-content: space-between;
@@ -15,6 +22,16 @@
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile: Header responsive */
+@media (max-width: 768px) {
+  .reservations-header {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .reservations-title h2 {

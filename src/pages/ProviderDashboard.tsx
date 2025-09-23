@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Link } from 'react-router-dom'
 import './Dashboard.css'
 
 const ProviderDashboard = () => {
   const { profile, signOut } = useAuth()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const handleSignOut = async () => {
     await signOut()
@@ -20,6 +22,47 @@ const ProviderDashboard = () => {
           <Link to="/dashboard/prestataire" className="dashboard-logo">
             <img src="/Linkup lo.png" alt="Linkup" className="logo-image" />
           </Link>
+          
+          {/* Bouton hamburger pour mobile */}
+          <button 
+            className="mobile-menu-toggle"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
+          <nav className={`dashboard-menu ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+            <Link 
+              to="/dashboard/prestataire" 
+              className="nav-item active"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              🏠 Tableau de bord
+            </Link>
+            <Link 
+              to="/services" 
+              className="nav-item"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              🛠️ Mes Services
+            </Link>
+            <Link 
+              to="/planning" 
+              className="nav-item"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              📅 Planning
+            </Link>
+            <Link 
+              to="/requests" 
+              className="nav-item"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              📋 Demandes
+            </Link>
+          </nav>
           
           <div className="user-menu">
             <div className="user-info">

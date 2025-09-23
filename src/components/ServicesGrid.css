@@ -6,6 +6,13 @@
   min-height: 100vh;
 }
 
+/* Mobile: Container plus compact */
+@media (max-width: 768px) {
+  .services-grid-container {
+    padding: 1rem;
+  }
+}
+
 .services-header {
   display: flex;
   justify-content: space-between;
@@ -15,6 +22,16 @@
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile: Header responsive */
+@media (max-width: 768px) {
+  .services-header {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .services-title h2 {
@@ -27,16 +44,39 @@
   gap: 0.5rem;
 }
 
+/* Mobile: Titre plus petit */
+@media (max-width: 768px) {
+  .services-title h2 {
+    font-size: 1.5rem;
+  }
+}
+
 .services-title p {
   color: #6b7280;
   margin: 0;
   font-size: 1.1rem;
 }
 
+/* Mobile: Description plus petite */
+@media (max-width: 768px) {
+  .services-title p {
+    font-size: 1rem;
+  }
+}
+
 .services-stats {
   display: flex;
   gap: 2rem;
   align-items: center;
+}
+
+/* Mobile: Stats responsive */
+@media (max-width: 768px) {
+  .services-stats {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 .stats-item {
@@ -86,6 +126,14 @@
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+}
+
+/* Mobile: Filtres plus compacts */
+@media (max-width: 768px) {
+  .services-filters {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .search-bar {
@@ -167,6 +215,14 @@
   gap: 2rem;
 }
 
+/* Mobile: Grille en colonne unique */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 .service-card {
   background: white;
   border-radius: 16px;
@@ -226,6 +282,13 @@
 
 .service-content {
   padding: 1.5rem;
+}
+
+/* Mobile: Contenu plus compact */
+@media (max-width: 768px) {
+  .service-content {
+    padding: 1.25rem;
+  }
 }
 
 .service-header {
