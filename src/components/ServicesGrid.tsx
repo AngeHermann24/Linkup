@@ -41,19 +41,24 @@ const ServicesGrid = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
-  // Catégories de services
+  // Catégories de services Linkup
   const categories = [
     { value: 'all', label: 'Tous les services', icon: '🔧' },
-    { value: 'plombier', label: 'Plomberie', icon: '🔧' },
-    { value: 'électricien', label: 'Électricité', icon: '⚡' },
-    { value: 'mécanicien', label: 'Mécanique', icon: '🔧' },
-    { value: 'coiffeuse', label: 'Coiffure', icon: '💇‍♀️' },
-    { value: 'maquilleuse', label: 'Maquillage', icon: '💄' },
-    { value: 'peintre', label: 'Peinture', icon: '🎨' },
-    { value: 'jardinier', label: 'Jardinage', icon: '🌱' },
-    { value: 'technicien de surface', label: 'Nettoyage', icon: '🧹' },
-    { value: 'traiteur', label: 'Traiteur', icon: '🍽️' },
-    { value: 'pâtissier', label: 'Pâtisserie', icon: '🧁' }
+    // Services Basic
+    { value: 'Toclo Toclo', label: 'Toclo Toclo', icon: '🏍️' },
+    { value: 'Fanicko', label: 'Fanicko', icon: '🚲' },
+    { value: 'Technicien de surface', label: 'Technicien de surface', icon: '🧹' },
+    { value: 'Peintre', label: 'Peintre', icon: '🎨' },
+    { value: 'Jardinage', label: 'Jardinage', icon: '🌱' },
+    { value: 'Ménage', label: 'Ménage', icon: '🧹' },
+    // Services Pro
+    { value: 'Mécanicien', label: 'Mécanicien', icon: '🔧' },
+    { value: 'Plomberie', label: 'Plomberie', icon: '🔧' },
+    { value: 'Électricité', label: 'Électricité', icon: '⚡' },
+    { value: 'Coiffure', label: 'Coiffure', icon: '✂️' },
+    { value: 'Traiteur', label: 'Traiteur', icon: '🍽️' },
+    { value: 'Maquilleuse', label: 'Maquilleuse', icon: '💄' },
+    { value: 'Pâtissier', label: 'Pâtissier', icon: '🎂' }
   ]
 
   const loadServices = async () => {
@@ -61,32 +66,49 @@ const ServicesGrid = () => {
       setLoading(true)
       setError(null)
 
-      // Récupérer tous les services avec les informations des prestataires
+      // Récupérer tous les prestataires vérifiés
       const { data, error } = await supabase
-        .from('provider_services_with_images')
-        .select(`
-          *,
-          profiles!provider_services_provider_id_fkey (
-            full_name,
-            email,
-            phone,
-            service_category
-          )
-        `)
+        .from('profiles')
+        .select('*')
+        .eq('role', 'prestataire')
+        .eq('verification_status', 'approved')
+        .not('service_category', 'is', null)
         .order('created_at', { ascending: false })
 
       if (error) throw error
 
-      // Transformer les données pour inclure les informations prestataire
-      const transformedServices = (data || []).map(service => ({
-        ...service,
-        provider_name: service.profiles?.full_name || 'Prestataire',
-        provider_email: service.profiles?.email || '',
-        provider_phone: service.profiles?.phone,
-        provider_service: service.profiles?.service_category || service.service_name
+      // Transformer les profils prestataires en services
+      const transformedServices = (data || []).map(provider => ({
+        id: provider.id,
+        provider_id: provider.id,
+        service_name: provider.service_category,
+        service_type: provider.service_type || 'basic',
+        title: `${provider.service_category} - ${provider.full_name}`,
+        short_description: `Services de ${provider.service_category.toLowerCase()} professionnels`,
+        description: `${provider.full_name} propose des services de ${provider.service_category.toLowerCase()} de qualité. Contactez-nous pour plus d'informations.`,
+        base_price: provider.service_type === 'pro' ? 3000 : 1000,
+        price_unit: 'FCFA',
+        price_type: 'fixed',
+        duration_minutes: 60,
+        created_at: provider.created_at,
+        
+        // Informations prestataire
+        provider_name: provider.full_name,
+        provider_email: provider.email,
+        provider_phone: provider.phone,
+        provider_service: provider.service_category,
+        
+        // Images par défaut
+        images: provider.profile_photo_url ? [{
+          id: '1',
+          image_url: provider.profile_photo_url,
+          alt_text: `Photo de ${provider.full_name}`,
+          is_primary: true
+        }] : []
       }))
 
       setServices(transformedServices)
+      console.log('Services chargés depuis les profils prestataires:', transformedServices.length)
     } catch (err: any) {
       console.error('Erreur lors du chargement des services:', err)
       setError(err.message)
