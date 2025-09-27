@@ -57,189 +57,167 @@ const AdminServices: React.FC<AdminServicesProps> = ({ onBack }) => {
     try {
       setLoading(true)
       
-      // Essayer de récupérer depuis la base de données
+      // Récupérer depuis la vraie table service_categories
+      console.log('Chargement depuis la base de données...')
       const { data, error } = await supabase
         .from('service_categories')
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('plan_type', { ascending: true })
+        .order('name', { ascending: true })
 
-      if (error && !error.message.includes('relation "service_categories" does not exist')) {
-        throw error
+      if (error) {
+        console.error('Erreur base de données:', error)
+        // Si la table n'existe pas, charger les services par défaut
+        await loadAllServices()
+        return
       }
 
       if (data && data.length > 0) {
+        console.log('Services chargés depuis la base:', data.length)
         setCategories(data)
       } else {
-        // Utiliser des données de test
-        loadTestData()
+        console.log('Aucun service en base, chargement par défaut')
+        await loadAllServices()
       }
+      
     } catch (error) {
-      console.error('Erreur lors du chargement des catégories:', error)
-      loadTestData()
+      console.error('Erreur lors du chargement des services:', error)
+      await loadAllServices()
     } finally {
       setLoading(false)
     }
   }
 
-  const loadTestData = () => {
-    const testCategories: ServiceCategory[] = [
-      {
-        id: '1',
-        name: 'Plomberie',
-        description: 'Réparation et installation de plomberie',
-        plan_type: 'pro',
-        icon: '🔧',
-        is_active: true,
+  const loadAllServices = async () => {
+    try {
+      // Récupérer les services utilisés par les prestataires (pour marquer lesquels sont actifs)
+      const { data: profilesData } = await supabase
+        .from('profiles')
+        .select('service_category')
+        .eq('role', 'prestataire')
+        .not('service_category', 'is', null)
+
+      const usedCategories = new Set(profilesData?.map(p => p.service_category) || [])
+      
+      // Liste complète de tous les services Linkup
+      const allServices = [
+        // Services Basic (1000 FCFA)
+        { name: 'Toclo Toclo', icon: '🏍️', plan_type: 'basic' as const, description: 'Transport en moto-taxi' },
+        { name: 'Fanicko', icon: '🚲', plan_type: 'basic' as const, description: 'Livraison à domicile' },
+        { name: 'Technicien de surface', icon: '🧹', plan_type: 'basic' as const, description: 'Nettoyage professionnel' },
+        { name: 'Peintre', icon: '🎨', plan_type: 'basic' as const, description: 'Peinture et décoration' },
+        { name: 'Jardinage', icon: '🌱', plan_type: 'basic' as const, description: 'Entretien et aménagement de jardins' },
+        { name: 'Ménage', icon: '🧹', plan_type: 'basic' as const, description: 'Nettoyage et entretien ménager' },
+        
+        // Services Pro (3000 FCFA)
+        { name: 'Mécanicien', icon: '🔧', plan_type: 'pro' as const, description: 'Réparation et entretien automobile' },
+        { name: 'Plomberie', icon: '🔧', plan_type: 'pro' as const, description: 'Réparation et installation de plomberie' },
+        { name: 'Électricité', icon: '⚡', plan_type: 'pro' as const, description: 'Installation et réparation électrique' },
+        { name: 'Coiffure', icon: '✂️', plan_type: 'pro' as const, description: 'Services de coiffure et beauté' },
+        { name: 'Traiteur', icon: '🍽️', plan_type: 'pro' as const, description: 'Services de restauration et traiteur' },
+        { name: 'Maquilleuse', icon: '💄', plan_type: 'pro' as const, description: 'Services de maquillage professionnel' },
+        { name: 'Pâtissier', icon: '🎂', plan_type: 'pro' as const, description: 'Création de pâtisseries et desserts' }
+      ]
+
+      const allCategories: ServiceCategory[] = allServices.map((service, index) => ({
+        id: (index + 1).toString(),
+        name: service.name,
+        description: service.description,
+        plan_type: service.plan_type,
+        icon: service.icon,
+        is_active: usedCategories.has(service.name), // Marquer comme actif si utilisé par un prestataire
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
-      },
-      {
-        id: '2',
-        name: 'Coiffure',
-        description: 'Services de coiffure et beauté',
-        plan_type: 'basic',
-        icon: '✂️',
-        is_active: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: '3',
-        name: 'Électricité',
-        description: 'Installation et réparation électrique',
-        plan_type: 'pro',
-        icon: '⚡',
-        is_active: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: '4',
-        name: 'Ménage',
-        description: 'Nettoyage et entretien ménager',
-        plan_type: 'basic',
-        icon: '🧹',
-        is_active: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: '5',
-        name: 'Jardinage',
-        description: 'Entretien et aménagement de jardins',
-        plan_type: 'basic',
-        icon: '🌱',
-        is_active: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: '6',
-        name: 'Climatisation',
-        description: 'Installation et maintenance de climatisation',
-        plan_type: 'pro',
-        icon: '❄️',
-        is_active: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }
-    ]
-    setCategories(testCategories)
+      }))
+
+      setCategories(allCategories)
+      console.log('Tous les services Linkup chargés:', allCategories)
+      
+    } catch (error) {
+      console.error('Erreur lors du chargement de tous les services:', error)
+      setCategories([])
+    }
   }
 
   const handleAddCategory = async (categoryData: Omit<ServiceCategory, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      const newCategory: ServiceCategory = {
-        ...categoryData,
-        id: Date.now().toString(),
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }
-
-      // Essayer d'ajouter à la base de données
-      const { error } = await supabase
+      console.log('Ajout d\'une nouvelle catégorie:', categoryData)
+      
+      // Ajouter à la base de données (Supabase génère l'ID et les timestamps)
+      const { data, error } = await supabase
         .from('service_categories')
-        .insert([newCategory])
+        .insert([categoryData])
+        .select()
+        .single()
 
-      if (error && !error.message.includes('relation "service_categories" does not exist')) {
+      if (error) {
         throw error
       }
 
-      // Ajouter localement
-      setCategories(prev => [newCategory, ...prev])
+      console.log('Catégorie ajoutée en base:', data)
+      
+      // Recharger la liste depuis la base
+      await fetchCategories()
       setShowAddModal(false)
-      alert('Catégorie ajoutée avec succès')
+      alert('✅ Catégorie ajoutée avec succès !')
+      
     } catch (error) {
       console.error('Erreur lors de l\'ajout:', error)
-      // Ajouter localement même en cas d'erreur
-      const newCategory: ServiceCategory = {
-        ...categoryData,
-        id: Date.now().toString(),
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }
-      setCategories(prev => [newCategory, ...prev])
-      setShowAddModal(false)
-      alert('Catégorie ajoutée localement (mode démo)')
+      alert('❌ Erreur lors de l\'ajout: ' + (error as Error).message)
     }
   }
 
   const handleUpdateCategory = async (categoryId: string, updates: Partial<ServiceCategory>) => {
     try {
+      console.log('Mise à jour catégorie:', categoryId, updates)
+      
       const { error } = await supabase
         .from('service_categories')
-        .update({ ...updates, updated_at: new Date().toISOString() })
+        .update(updates)
         .eq('id', categoryId)
 
-      if (error && !error.message.includes('relation "service_categories" does not exist')) {
+      if (error) {
         throw error
       }
 
-      // Mettre à jour localement
-      setCategories(prev =>
-        prev.map(c =>
-          c.id === categoryId ? { ...c, ...updates, updated_at: new Date().toISOString() } : c
-        )
-      )
-
+      console.log('Catégorie mise à jour en base')
+      
+      // Recharger la liste depuis la base
+      await fetchCategories()
       setShowEditModal(false)
       setSelectedCategory(null)
-      alert('Catégorie mise à jour avec succès')
+      alert('✅ Catégorie mise à jour avec succès !')
+      
     } catch (error) {
       console.error('Erreur lors de la mise à jour:', error)
-      // Mettre à jour localement même en cas d'erreur
-      setCategories(prev =>
-        prev.map(c =>
-          c.id === categoryId ? { ...c, ...updates, updated_at: new Date().toISOString() } : c
-        )
-      )
-      setShowEditModal(false)
-      setSelectedCategory(null)
-      alert('Catégorie mise à jour localement (mode démo)')
+      alert('❌ Erreur lors de la mise à jour: ' + (error as Error).message)
     }
   }
 
   const handleDeleteCategory = async (categoryId: string) => {
-    if (!confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')) return
+    if (!confirm('⚠️ Êtes-vous sûr de vouloir supprimer cette catégorie ?\n\nCette action est irréversible !')) return
 
     try {
+      console.log('Suppression catégorie:', categoryId)
+      
       const { error } = await supabase
         .from('service_categories')
         .delete()
         .eq('id', categoryId)
 
-      if (error && !error.message.includes('relation "service_categories" does not exist')) {
+      if (error) {
         throw error
       }
 
-      // Supprimer localement
-      setCategories(prev => prev.filter(c => c.id !== categoryId))
-      alert('Catégorie supprimée avec succès')
+      console.log('Catégorie supprimée de la base')
+      
+      // Recharger la liste depuis la base
+      await fetchCategories()
+      alert('✅ Catégorie supprimée avec succès !')
+      
     } catch (error) {
       console.error('Erreur lors de la suppression:', error)
-      // Supprimer localement même en cas d'erreur
-      setCategories(prev => prev.filter(c => c.id !== categoryId))
-      alert('Catégorie supprimée localement (mode démo)')
+      alert('❌ Erreur lors de la suppression: ' + (error as Error).message)
     }
   }
 

@@ -62,6 +62,23 @@ const ProviderDashboard = () => {
             >
               📋 Demandes
             </Link>
+            <Link 
+              to="/settings" 
+              className="nav-item settings-link"
+              onClick={() => {
+                console.log('Navigation vers /settings')
+                setIsMobileMenuOpen(false)
+              }}
+              style={{ 
+                background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                color: 'white',
+                borderRadius: '8px',
+                padding: '0.5rem 1rem',
+                fontWeight: '600'
+              }}
+            >
+              ⚙️ Paramètres
+            </Link>
           </nav>
           
           <div className="user-menu">
@@ -173,7 +190,9 @@ const ProviderDashboard = () => {
               <div className="card-icon">⚙️</div>
               <h3>Paramètres</h3>
               <p>Configurez votre profil et préférences</p>
-              <button className="card-button">Bientôt disponible</button>
+              <Link to="/settings" className="card-button active">
+                Accéder aux paramètres
+              </Link>
             </div>
           </div>
 

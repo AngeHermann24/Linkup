@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import AdminRequests from '../components/AdminRequests'
 import AdminServices from '../components/AdminServices'
 import AdminDashboardStats from '../components/AdminDashboard'
+import AdminVerification from '../components/AdminVerification'
 import './AdminDashboard.css'
 
 interface User {
@@ -28,7 +29,7 @@ const AdminDashboard = () => {
   const [filterRole, setFilterRole] = useState<'all' | 'client' | 'prestataire'>('all')
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [showEditModal, setShowEditModal] = useState(false)
-  const [currentSection, setCurrentSection] = useState<'dashboard' | 'users' | 'requests' | 'services'>('dashboard')
+  const [currentSection, setCurrentSection] = useState<'dashboard' | 'users' | 'requests' | 'services' | 'verification'>('dashboard')
 
   // Vérifier si l'utilisateur est admin (temporairement désactivé pour test)
   useEffect(() => {
@@ -172,6 +173,12 @@ const AdminDashboard = () => {
             >
               🛍️ Services
             </button>
+            <button
+              className={`nav-btn ${currentSection === 'verification' ? 'active' : ''}`}
+              onClick={() => setCurrentSection('verification')}
+            >
+              🔐 Vérification
+            </button>
           </div>
           <div className="admin-user">
             <span className="admin-name">Admin</span>
@@ -190,6 +197,8 @@ const AdminDashboard = () => {
           <AdminRequests onBack={() => setCurrentSection('users')} />
         ) : currentSection === 'services' ? (
           <AdminServices onBack={() => setCurrentSection('users')} />
+        ) : currentSection === 'verification' ? (
+          <AdminVerification onBack={() => setCurrentSection('users')} />
         ) : (
         <div className="admin-container">
           <h1 className="page-title">Gestion des Utilisateurs</h1>

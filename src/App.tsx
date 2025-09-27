@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import ClientDashboard from './pages/ClientDashboard'
 import ProviderDashboard from './pages/ProviderDashboard'
+import ProviderSettings from './pages/ProviderSettings'
 import PlanningPage from './pages/PlanningPage'
 import ServicesPage from './pages/ServicesPage'
 import StatisticsPage from './pages/StatisticsPage'
@@ -103,6 +104,14 @@ function App() {
               element={
                 <ProtectedRoute requiredRole="prestataire">
                   <RequestsPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/settings" 
+              element={
+                <ProtectedRoute requiredRole="prestataire">
+                  <ProviderSettings />
                 </ProtectedRoute>
               } 
             />
