@@ -138,6 +138,11 @@ const Login = () => {
           <Link to="/" className="auth-link">
             Retour à l'accueil
           </Link>
+          {email === 'angeherboua@gmail.com' && (
+            <Link to="/admin" className="auth-link" style={{fontSize: '0.8rem', opacity: 0.7}}>
+              Panel Admin
+            </Link>
+          )}
         </div>
       </div>
 

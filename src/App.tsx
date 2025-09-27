@@ -14,6 +14,7 @@ import ServicesPage from './pages/ServicesPage'
 import StatisticsPage from './pages/StatisticsPage'
 import RequestsPage from './pages/RequestsPage'
 import ReservationsPage from './pages/ReservationsPage'
+import AdminDashboard from './pages/AdminDashboard'
 
 import './App.css'
 
@@ -113,6 +114,9 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+            
+            {/* Panel Admin */}
+            <Route path="/admin" element={<AdminDashboard />} />
             
             {/* Route par défaut */}
             <Route path="*" element={<Navigate to="/" replace />} />
