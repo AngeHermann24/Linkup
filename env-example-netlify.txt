@@ -1,0 +1,10 @@
+# Variables d'environnement à configurer dans Netlify
+# Allez dans : Site Settings → Environment Variables
+
+VITE_SUPABASE_URL=https://votre-projet.supabase.co
+VITE_SUPABASE_ANON_KEY=votre_clé_anon_publique
+
+# Comment les trouver dans Supabase :
+# 1. Allez sur supabase.com → Votre projet
+# 2. Settings → API
+# 3. Copiez "Project URL" et "anon public"

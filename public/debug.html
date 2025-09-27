@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Netlify - Linkup</title>
+</head>
+<body>
+    <h1>🔍 Debug Netlify Deployment</h1>
+    <p><strong>Status:</strong> ✅ Netlify deployment successful</p>
+    <p><strong>Time:</strong> <span id="time"></span></p>
+    
+    <h2>Environment Variables Check:</h2>
+    <div id="env-check"></div>
+    
+    <h2>Console Logs:</h2>
+    <div id="console-logs"></div>
+    
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString();
+        
+        // Check environment variables
+        const envDiv = document.getElementById('env-check');
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+        const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+        
+        envDiv.innerHTML = `
+            <p>VITE_SUPABASE_URL: ${supabaseUrl ? '✅ Configured' : '❌ Missing'}</p>
+            <p>VITE_SUPABASE_ANON_KEY: ${supabaseKey ? '✅ Configured' : '❌ Missing'}</p>
+        `;
+        
+        // Capture console errors
+        const originalError = console.error;
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            const logsDiv = document.getElementById('console-logs');
+            logsDiv.innerHTML += `<p style="color: red;">ERROR: ${args.join(' ')}</p>`;
+        };
+        
+        // Test navigation
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 5000);
+    </script>
+</body>
+</html>
