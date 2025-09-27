@@ -335,6 +335,8 @@
   padding: 1rem;
   background: #f8fafc;
   border-radius: 12px;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 /* Mobile: Sections plus compactes */
@@ -343,6 +345,18 @@
     margin-bottom: 0.5rem;
     padding: 0.4rem;
     border-radius: 8px;
+  }
+  
+  /* Assurer que le contenu ne déborde pas */
+  .provider-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .provider-info > * {
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
 }
 
