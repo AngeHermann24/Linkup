@@ -102,12 +102,21 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .video-placeholder:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px) rotateX(5deg) rotateY(-5deg) scale(1.02);
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .play-button {
@@ -122,12 +131,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transform-style: preserve-3d;
 }
 
 .play-button:hover {
   background: white;
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(1.15) translateZ(10px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .play-icon {
@@ -167,39 +185,93 @@
 }
 
 .service-card {
-  position: absolute;
-  background: white;
-  padding: 1rem;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  color: #374151;
-  animation: float 6s ease-in-out infinite;
+  position: absolute !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 0.8rem 1.2rem !important;
+  border-radius: 50px !important;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.1),
+    0 5px 15px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.3) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  font-size: 0.9rem !important;
+  animation: bubble3d 8s ease-in-out infinite !important;
+  transform-style: preserve-3d !important;
+  transition: all 0.4s ease !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 120px !important;
 }
 
 .service-card .service-icon {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.service-card:hover {
+  transform: scale(1.1) translateY(-5px);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 8px 20px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 0 0 2px rgba(59, 130, 246, 0.2);
+  animation-play-state: paused;
 }
 
 .card-1 {
   top: 20%;
   right: -10%;
   animation-delay: 0s;
+  transform: scale(1.1);
 }
 
 .card-2 {
   top: 60%;
   left: -15%;
   animation-delay: 2s;
+  transform: scale(0.9);
 }
 
 .card-3 {
   bottom: 20%;
   right: -5%;
   animation-delay: 4s;
+  transform: scale(1.05);
+}
+
+.card-4 {
+  top: 10%;
+  left: -10%;
+  animation-delay: 1s;
+  transform: scale(0.85);
+}
+
+.card-5 {
+  top: 45%;
+  right: -15%;
+  animation-delay: 3s;
+  transform: scale(1.15);
+}
+
+.card-6 {
+  bottom: 10%;
+  left: -8%;
+  animation-delay: 5s;
+  transform: scale(0.95);
+}
+
+.card-7 {
+  bottom: 45%;
+  right: -12%;
+  animation-delay: 6s;
+  transform: scale(1.08);
 }
 
 @keyframes float {
@@ -265,4 +337,39 @@
   .floating-cards {
     display: none;
   }
+}
+
+/* Animations 3D pour bulles */
+@keyframes bubble3d {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1) rotateZ(0deg);
+    opacity: 0.9;
+  }
+  25% {
+    transform: translateY(-20px) translateX(5px) scale(1.05) rotateZ(2deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-3px) scale(0.95) rotateZ(-1deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-25px) translateX(2px) scale(1.02) rotateZ(1deg);
+    opacity: 0.95;
+  }
+}
+
+/* Animation de pulsation 3D pour le bouton play */
+@keyframes pulse3d {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1) translateZ(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05) translateZ(5px);
+  }
+}
+
+/* Ajouter l'animation de pulsation au bouton play */
+.play-button {
+  animation: pulse3d 2s ease-in-out infinite;
 }

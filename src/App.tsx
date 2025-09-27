@@ -1,23 +1,23 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
-import ProtectedRoute from './components/ProtectedRoute'
-import './components/ProtectedRoute.css'
-
-// Pages
+import { useEffect } from 'react'
 import LandingPage from './pages/LandingPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import ClientDashboard from './pages/ClientDashboard'
 import ProviderDashboard from './pages/ProviderDashboard'
+import AdminDashboard from './pages/AdminDashboard'
 import ProviderSettings from './pages/ProviderSettings'
+import ProviderVerification from './pages/ProviderVerification'
+import ProtectedRoute from './components/ProtectedRoute'
+import PWAInstaller from './components/PWAInstaller'
+import { registerServiceWorker, trackPWAUsage } from './utils/pwa'
+import './App.css'
 import PlanningPage from './pages/PlanningPage'
 import ServicesPage from './pages/ServicesPage'
 import StatisticsPage from './pages/StatisticsPage'
 import RequestsPage from './pages/RequestsPage'
 import ReservationsPage from './pages/ReservationsPage'
-import AdminDashboard from './pages/AdminDashboard'
-
-import './App.css'
 
 // Composant pour rediriger automatiquement les utilisateurs connectés
 const AuthRedirect = () => {
@@ -46,6 +46,14 @@ const AuthRedirect = () => {
 }
 
 function App() {
+  useEffect(() => {
+    // Enregistrer le Service Worker
+    registerServiceWorker()
+    
+    // Tracker l'utilisation PWA
+    trackPWAUsage()
+  }, [])
+
   return (
     <AuthProvider>
       <Router>
@@ -130,6 +138,9 @@ function App() {
             {/* Route par défaut */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          
+          {/* Composant d'installation PWA */}
+          <PWAInstaller />
         </div>
       </Router>
     </AuthProvider>

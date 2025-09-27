@@ -54,7 +54,7 @@ const ServicesGrid = () => {
     // Services Pro
     { value: 'Mécanicien', label: 'Mécanicien', icon: '🔧' },
     { value: 'Plomberie', label: 'Plomberie', icon: '🔧' },
-    { value: 'Électricité', label: 'Électricité', icon: '⚡' },
+    { value: 'Électricien', label: 'Électricien', icon: '⚡' },
     { value: 'Coiffure', label: 'Coiffure', icon: '✂️' },
     { value: 'Traiteur', label: 'Traiteur', icon: '🍽️' },
     { value: 'Maquilleuse', label: 'Maquilleuse', icon: '💄' },
@@ -65,8 +65,23 @@ const ServicesGrid = () => {
     try {
       setLoading(true)
       setError(null)
+      
+      console.log('Chargement des services prestataires...')
 
-      // Récupérer tous les prestataires vérifiés
+      // Test 1: Récupérer TOUS les prestataires d'abord
+      const { data: allProviders, error: allError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('role', 'prestataire')
+        
+      console.log('TOUS les prestataires:', allProviders?.length || 0)
+      console.log('Détail TOUS prestataires:', allProviders?.map(p => ({
+        nom: p.full_name,
+        service: p.service_category,
+        statut: p.verification_status
+      })))
+
+      // Test 2: Récupérer seulement les approuvés
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -74,8 +89,13 @@ const ServicesGrid = () => {
         .eq('verification_status', 'approved')
         .not('service_category', 'is', null)
         .order('created_at', { ascending: false })
+        
+      console.log('Prestataires approuvés:', data?.length || 0)
 
-      if (error) throw error
+      if (error) {
+        console.error('Erreur Supabase:', error)
+        throw error
+      }
 
       // Transformer les profils prestataires en services
       const transformedServices = (data || []).map(provider => ({
@@ -109,9 +129,19 @@ const ServicesGrid = () => {
 
       setServices(transformedServices)
       console.log('Services chargés depuis les profils prestataires:', transformedServices.length)
+      console.log('Détail des services:', transformedServices.map(s => ({ 
+        nom: s.provider_name, 
+        service: s.service_name,
+        titre: s.title 
+      })))
+      
+      if (transformedServices.length === 0) {
+        console.warn('Aucun prestataire approuvé trouvé. Vérifiez que des prestataires ont été approuvés via l\'admin.')
+      }
+      
     } catch (err: any) {
       console.error('Erreur lors du chargement des services:', err)
-      setError(err.message)
+      setError(`Erreur de connexion: ${err.message}. Vérifiez votre connexion internet et les paramètres Supabase.`)
     } finally {
       setLoading(false)
     }
@@ -128,10 +158,26 @@ const ServicesGrid = () => {
                          service.provider_name.toLowerCase().includes(searchTerm.toLowerCase())
     
     const matchesCategory = selectedCategory === 'all' || 
-                           service.service_name.toLowerCase().includes(selectedCategory.toLowerCase())
+                           service.service_name === selectedCategory ||
+                           service.service_name.toLowerCase().includes(selectedCategory.toLowerCase()) ||
+                           selectedCategory.toLowerCase().includes(service.service_name.toLowerCase())
+    
+    // Debug pour chaque service
+    if (selectedCategory === 'all') {
+      console.log(`Service ${service.provider_name}:`, {
+        service_name: service.service_name,
+        matchesSearch,
+        matchesCategory,
+        included: matchesSearch && matchesCategory
+      })
+    }
     
     return matchesSearch && matchesCategory
   })
+  
+  console.log('Services totaux:', services.length)
+  console.log('Catégorie sélectionnée:', selectedCategory)
+  console.log('Services filtrés:', filteredServices.length)
 
   const getServiceIcon = (serviceName: string) => {
     const name = serviceName.toLowerCase()
@@ -237,11 +283,20 @@ const ServicesGrid = () => {
         </div>
       ) : (
         <div className="services-grid">
-          {filteredServices.map((service) => {
+          {filteredServices.map((service, index) => {
+            // Vérifier que les données essentielles existent
+            if (!service.id || !service.provider_name || !service.service_name) {
+              console.warn('Service avec données manquantes:', service)
+              return null
+            }
+            
+            console.log(`Rendu service ${index + 1}:`, service.provider_name, service.service_name)
+            
             const primaryImage = getPrimaryImage(service)
+            const uniqueKey = `${service.id}-${service.provider_name}-${index}`
             
             return (
-              <div key={service.id} className="service-card" onClick={() => setSelectedService(service)}>
+              <div key={uniqueKey} className="service-card" onClick={() => setSelectedService(service)}>
                 <div className="service-image">
                   {primaryImage ? (
                     <img src={primaryImage.image_url} alt={primaryImage.alt_text || service.title} />
@@ -257,12 +312,12 @@ const ServicesGrid = () => {
 
                 <div className="service-content">
                   <div className="service-header">
-                    <h3 className="service-title">{service.title}</h3>
-                    <div className="service-category">{service.service_name}</div>
+                    <h3 className="service-title">{service.title || `${service.service_name} - ${service.provider_name}`}</h3>
+                    <div className="service-category">{service.service_name || 'Service'}</div>
                   </div>
 
                   <div className="provider-info">
-                    <span className="provider-name">👤 {service.provider_name}</span>
+                    <span className="provider-name">👤 {service.provider_name || 'Prestataire'}</span>
                     <div className="service-rating">
                       ⭐⭐⭐⭐⭐ <span>(4.8)</span>
                     </div>

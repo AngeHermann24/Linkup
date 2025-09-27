@@ -51,6 +51,22 @@ const HeroSection = () => {
                 <div className="service-icon">🚿</div>
                 <span>Plomberie</span>
               </div>
+              <div className="service-card card-4">
+                <div className="service-icon">⚡</div>
+                <span>Électricité</span>
+              </div>
+              <div className="service-card card-5">
+                <div className="service-icon">✂️</div>
+                <span>Coiffure</span>
+              </div>
+              <div className="service-card card-6">
+                <div className="service-icon">🍽️</div>
+                <span>Traiteur</span>
+              </div>
+              <div className="service-card card-7">
+                <div className="service-icon">🧹</div>
+                <span>Ménage</span>
+              </div>
             </div>
           </div>
         </div>

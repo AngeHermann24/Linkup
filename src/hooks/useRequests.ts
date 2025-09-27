@@ -28,6 +28,7 @@ export interface ServiceRequest {
   client_phone_profile?: string
   provider_name?: string
   provider_service?: string
+  provider_phone?: string
   service_title?: string
   service_base_price?: number
 }
@@ -121,23 +122,40 @@ export const useRequests = () => {
     try {
       setLoading(true)
       setError(null)
+      
+      console.log('Création d\'une demande de service:', requestData)
 
-      const { data, error } = await supabase.rpc('create_service_request', {
-        p_client_id: user.id,
-        p_provider_id: requestData.provider_id,
-        p_service_id: requestData.service_id || null,
-        p_service_type: requestData.service_type,
-        p_title: requestData.title,
-        p_description: requestData.description || null,
-        p_preferred_date: requestData.preferred_date || null,
-        p_preferred_time: requestData.preferred_time || null,
-        p_address: requestData.address || null,
-        p_phone: requestData.phone || null,
-        p_estimated_price: requestData.estimated_price || null
-      })
+      // Solution temporaire : insertion directe simple
+      const requestToInsert = {
+        client_id: user.id,
+        provider_id: requestData.provider_id,
+        service_type: requestData.service_type || 'basic',
+        title: requestData.title || 'Demande de service',
+        description: requestData.description,
+        preferred_date: requestData.preferred_date,
+        preferred_time: requestData.preferred_time,
+        address: requestData.address,
+        phone: requestData.phone,
+        estimated_price: requestData.estimated_price,
+        price_unit: 'FCFA',
+        status: 'pending'
+      }
+      
+      console.log('Données à insérer:', requestToInsert)
+      
+      const { data, error } = await supabase
+        .from('service_requests')
+        .insert(requestToInsert)
+        .select()
+        .single()
 
-      if (error) throw error
+      if (error) {
+        console.error('Erreur RPC:', error)
+        throw error
+      }
 
+      console.log('Demande créée avec succès:', data)
+      
       // Recharger les demandes
       await loadRequests()
       

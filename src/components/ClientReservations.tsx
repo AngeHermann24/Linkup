@@ -229,8 +229,8 @@ const ClientReservations = () => {
                     <div className="provider-contact">
                       <div className="contact-item">
                         <span className="contact-label">📞 Téléphone :</span>
-                        <a href={`tel:${request.provider_response || request.phone}`} className="contact-value phone-link">
-                          {request.provider_response || request.phone || 'Non renseigné'}
+                        <a href={`tel:${request.provider_phone || request.phone}`} className="contact-value phone-link">
+                          {request.provider_phone || request.phone || 'Non renseigné'}
                         </a>
                       </div>
                       <div className="contact-note">
