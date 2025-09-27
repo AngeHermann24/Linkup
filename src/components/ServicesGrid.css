@@ -244,8 +244,22 @@
   
   .dashboard-content .view-details-btn,
   .dashboard-content .order-btn {
-    padding: 0.3rem 0.5rem;
-    font-size: 0.65rem;
+    padding: 0.25rem 0.4rem;
+    font-size: 0.6rem;
+  }
+  
+  .dashboard-content .service-description {
+    margin: 0 0 0.2rem 0;
+    font-size: 0.7rem;
+  }
+  
+  .dashboard-content .provider-info {
+    margin-bottom: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+  
+  .dashboard-content .service-details {
+    margin-bottom: 0.2rem;
   }
 }
 
@@ -279,7 +293,7 @@
   
   /* Dashboard client: cartes encore plus petites */
   .dashboard-content .service-image {
-    height: 40px;
+    height: 35px;
   }
 }
 
@@ -337,7 +351,7 @@
   
   /* Dashboard client: padding minimal */
   .dashboard-content .service-content {
-    padding: 0.3rem;
+    padding: 0.25rem;
   }
 }
 
@@ -362,8 +376,8 @@
   
   /* Dashboard client: titre ultra-compact */
   .dashboard-content .service-title {
-    font-size: 0.8rem;
-    margin: 0 0 0.1rem 0;
+    font-size: 0.75rem;
+    margin: 0 0 0.05rem 0;
   }
 }
 

@@ -221,9 +221,9 @@
 /* Mobile: Header plus compact */
 @media (max-width: 768px) {
   .reservation-header {
-    padding: 1rem 1rem 0.5rem 1rem;
+    padding: 0.75rem 0.75rem 0.5rem 0.75rem;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 }
 
@@ -247,6 +247,29 @@
   gap: 1rem;
   align-items: center;
   flex-wrap: wrap;
+}
+
+/* Mobile: Métadonnées plus compactes */
+@media (max-width: 768px) {
+  .reservation-meta {
+    gap: 0.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .service-type {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+  
+  .reservation-date {
+    font-size: 0.8rem;
+  }
+  
+  .status-badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
 }
 
 .service-type {
@@ -303,7 +326,7 @@
 /* Mobile: Contenu plus compact */
 @media (max-width: 768px) {
   .reservation-content {
-    padding: 0.5rem 1rem 1rem 1rem;
+    padding: 0.5rem 0.75rem 0.75rem 0.75rem;
   }
 }
 
@@ -317,8 +340,9 @@
 /* Mobile: Sections plus compactes */
 @media (max-width: 768px) {
   .provider-info, .reservation-description {
-    margin-bottom: 0.75rem;
-    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.4rem;
+    border-radius: 8px;
   }
 }
 
