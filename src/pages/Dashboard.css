@@ -57,20 +57,21 @@
 }
 
 .dashboard-logo .logo-image {
-  height: 45px;
-  width: auto;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.3));
   transition: transform 0.3s ease;
 }
 
-.logo-image:hover {
+.dashboard-logo .logo-image:hover {
   transform: scale(1.05);
 }
 
 /* Mobile: Logo plus petit */
 @media (max-width: 768px) {
   .dashboard-logo .logo-image {
-    width: 80px;
+    width: 100px;
   }
   
   .dashboard-logo {
