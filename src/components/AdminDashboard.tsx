@@ -109,11 +109,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBack }) => {
       // Calculer les revenus d'abonnements (estimation)
       const basicProviders = users.filter(u => 
         u.role === 'prestataire' && 
-        categories.some(c => c.plan_type === 'basic' && c.name === u.service_category)
+        categories.some((c: any) => c.plan_type === 'basic' && c.name === u.service_category)
       ).length
       const proProviders = users.filter(u => 
         u.role === 'prestataire' && 
-        categories.some(c => c.plan_type === 'pro' && c.name === u.service_category)
+        categories.some((c: any) => c.plan_type === 'pro' && c.name === u.service_category)
       ).length
 
       const monthlySubscriptionRevenue = (basicProviders * 1000) + (proProviders * 3000)

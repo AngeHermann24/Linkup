@@ -69,7 +69,7 @@ const ProviderRegistration: React.FC<ProviderRegistrationProps> = ({ onComplete 
     const fileExt = file.name.split('.').pop()
     const fileName = `${user?.id}/${folder}/${Date.now()}.${fileExt}`
     
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from('provider-documents')
       .upload(fileName, file)
 
