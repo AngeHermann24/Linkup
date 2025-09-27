@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
-import './ProviderRegistration.css'
+import '../pages/ProviderSettings.css'
 
 interface ProviderVerificationFormProps {
   onComplete: () => void
