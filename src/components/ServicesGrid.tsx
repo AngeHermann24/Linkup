@@ -68,20 +68,7 @@ const ServicesGrid = () => {
       
       console.log('Chargement des services prestataires...')
 
-      // Test 1: Récupérer TOUS les prestataires d'abord
-      const { data: allProviders, error: allError } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('role', 'prestataire')
-        
-      console.log('TOUS les prestataires:', allProviders?.length || 0)
-      console.log('Détail TOUS prestataires:', allProviders?.map(p => ({
-        nom: p.full_name,
-        service: p.service_category,
-        statut: p.verification_status
-      })))
-
-      // Test 2: Récupérer seulement les approuvés
+      // Récupérer tous les prestataires vérifiés
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -89,8 +76,6 @@ const ServicesGrid = () => {
         .eq('verification_status', 'approved')
         .not('service_category', 'is', null)
         .order('created_at', { ascending: false })
-        
-      console.log('Prestataires approuvés:', data?.length || 0)
 
       if (error) {
         console.error('Erreur Supabase:', error)
