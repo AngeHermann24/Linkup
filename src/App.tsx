@@ -8,7 +8,7 @@ import ClientDashboard from './pages/ClientDashboard'
 import ProviderDashboard from './pages/ProviderDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import ProviderSettings from './pages/ProviderSettings'
-import ProviderVerification from './pages/ProviderVerification'
+
 import ProtectedRoute from './components/ProtectedRoute'
 import PWAInstaller from './components/PWAInstaller'
 import { registerServiceWorker, trackPWAUsage } from './utils/pwa'
