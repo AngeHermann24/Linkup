@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Link } from 'react-router-dom'
 import './Dashboard.css'
+import './ProfessionalHeader.css'
 
 const ProviderDashboard = () => {
   const { profile, signOut } = useAuth()
@@ -17,82 +18,89 @@ const ProviderDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <header className="dashboard-header">
-        <div className="dashboard-nav">
-          <Link to="/dashboard/prestataire" className="dashboard-logo">
-            <img src="/Linkup lo.png" alt="Linkup" className="logo-image" />
-          </Link>
-          
-          {/* Bouton hamburger pour mobile */}
-          <button 
-            className="mobile-menu-toggle"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          
-          <nav className={`dashboard-menu ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-            <Link 
-              to="/dashboard/prestataire" 
-              className="nav-item active"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              🏠 Tableau de bord
-            </Link>
-            <Link 
-              to="/services" 
-              className="nav-item"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              🛠️ Mes Services
-            </Link>
-            <Link 
-              to="/planning" 
-              className="nav-item"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              📅 Planning
-            </Link>
-            <Link 
-              to="/requests" 
-              className="nav-item"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              📋 Demandes
-            </Link>
-            <Link 
-              to="/settings" 
-              className="nav-item settings-link"
-              onClick={() => {
-                console.log('Navigation vers /settings')
-                setIsMobileMenuOpen(false)
-              }}
-              style={{ 
-                background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                color: 'white',
-                borderRadius: '8px',
-                padding: '0.5rem 1rem',
-                fontWeight: '600'
-              }}
-            >
-              ⚙️ Paramètres
-            </Link>
-          </nav>
-          
-          <div className="user-menu">
+      <header className="modern-header">
+        <div className="header-layout">
+          {/* À gauche : Nom + Rôle dans une carte élégante */}
+          <div className="user-card">
             <div className="user-info">
               <span className="user-name">{profile?.full_name || 'Prestataire'}</span>
-              <span className="user-role">
-                {profile?.service_category} - {profile?.service_type && getServiceTypeLabel(profile.service_type)}
-              </span>
+              <span className="user-role">PRESTATAIRE</span>
             </div>
-            <button onClick={handleSignOut} className="sign-out-btn">
+          </div>
+          
+          {/* Au centre : Logo Linkup */}
+          <div className="center-logo">
+            <Link to="/dashboard/prestataire" className="logo-link">
+              <img src="/Linkup lo.png" alt="Linkup" className="header-logo-img" />
+            </Link>
+          </div>
+          
+          {/* À droite : Bouton Déconnexion moderne */}
+          <div className="logout-section">
+            <button onClick={handleSignOut} className="modern-logout-btn">
               Déconnexion
             </button>
           </div>
         </div>
+        
+        {/* Menu hamburger en bas à gauche */}
+        <button 
+          className="hamburger-menu"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        {/* Menu mobile */}
+        <nav className={`mobile-nav ${isMobileMenuOpen ? 'open' : ''}`}>
+          <Link 
+            to="/dashboard/prestataire" 
+            className="nav-link active"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            🏠 Tableau de bord
+          </Link>
+          <Link 
+            to="/services" 
+            className="nav-link"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            🛠️ Mes Services
+          </Link>
+          <Link 
+            to="/planning" 
+            className="nav-link"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            📅 Planning
+          </Link>
+          <Link 
+            to="/requests" 
+            className="nav-link"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            📋 Demandes
+          </Link>
+          <Link 
+            to="/settings" 
+            className="nav-link"
+            onClick={() => {
+              console.log('Navigation vers /settings')
+              setIsMobileMenuOpen(false)
+            }}
+            style={{ 
+              background: 'linear-gradient(135deg, #667eea, #764ba2)',
+              color: 'white',
+              borderRadius: '8px',
+              margin: '0.5rem',
+              fontWeight: '600'
+            }}
+          >
+            ⚙️ Paramètres
+          </Link>
+        </nav>
       </header>
 
       <main className="dashboard-main">

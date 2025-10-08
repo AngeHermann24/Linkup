@@ -167,24 +167,29 @@
 }
 
 .category-filters {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 0.75rem;
-  flex-wrap: wrap;
+  margin-bottom: 2rem;
 }
 
 .category-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
+  padding: 1rem;
   border: 2px solid #e5e7eb;
-  border-radius: 12px;
+  border-radius: 16px;
   background: white;
   color: #6b7280;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  min-height: 80px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .category-btn:hover {
@@ -198,6 +203,36 @@
   border-color: #3b82f6;
   color: white;
   box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  transform: scale(1.02);
+  font-weight: 600;
+}
+
+/* Style spécial pour le bouton "Tous les services" */
+.category-btn.active:first-child {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  grid-column: span 2;
+  min-height: 100px;
+}
+
+/* Style pour le bouton "Plus de catégories" */
+.show-more-btn {
+  background: linear-gradient(135deg, #f9fafb, #f3f4f6) !important;
+  border: 2px dashed #d1d5db !important;
+  color: #6b7280 !important;
+  transition: all 0.3s ease;
+}
+
+.show-more-btn:hover {
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb) !important;
+  border-color: #9ca3af !important;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .category-btn.active:first-child {
+    grid-column: span 1;
+    min-height: 80px;
+  }
 }
 
 .category-icon {
@@ -208,46 +243,133 @@
   font-size: 0.875rem;
 }
 
+/* Responsive pour les catégories */
+@media (max-width: 1200px) {
+  .category-filters {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-filters {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .category-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .category-icon {
+    font-size: 1rem;
+  }
+  
+  .category-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-filters {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+  
+  .category-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+    flex-direction: column;
+    text-align: center;
+    min-height: 60px;
+  }
+}
+
 /* Grille des services */
 .services-grid {
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 0.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
   align-items: start;
   width: 100%;
   min-height: 400px;
   overflow: visible;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Desktop large: S'assurer que toutes les cartes sont visibles */
+@media (min-width: 1025px) {
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+  
+  .service-card {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    height: 300px !important;
+  }
 }
 
 /* Tablette: 2 colonnes */
 @media (max-width: 1024px) {
   .services-grid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 0.2rem;
+    gap: 1rem;
+    padding: 1rem;
   }
 }
 
 /* Mobile: Grille 3 colonnes carrées */
 @media (max-width: 768px) {
   .services-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.15rem;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;
+    padding: 1rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .service-card {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 120px !important;
+    margin: 0 !important;
+    transform: none !important;
   }
   
   /* Dashboard client: gap plus petit pour plus de cartes */
   .dashboard-content .services-grid {
-    gap: 0.1rem;
+    gap: 0.3rem !important;
+    padding: 0.5rem !important;
   }
 }
 
 /* Très petit écran */
 @media (max-width: 480px) {
   .services-grid {
-    gap: 0.1rem;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.3rem !important;
+    padding: 0.5rem !important;
+  }
+  
+  .service-card {
+    min-height: 100px !important;
+    font-size: 0.8rem !important;
   }
   
   .dashboard-content .services-grid {
-    gap: 0.05rem;
+    gap: 0.2rem !important;
+    padding: 0.3rem !important;
   }
   
   /* Dashboard client: optimisations ultra-compactes */
@@ -299,6 +421,9 @@
   opacity: 1 !important;
   position: relative;
   z-index: 1;
+  width: 100%;
+  margin: 0;
+  transform: none;
 }
 
 /* Mobile: Cartes carrées pour 3 colonnes */

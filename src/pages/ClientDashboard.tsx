@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import ServicesGrid from '../components/ServicesGrid'
 import './Dashboard.css'
 import './ClientDashboard.css'
+import './ProfessionalHeader.css'
 
 const ClientDashboard = () => {
   const { profile, signOut } = useAuth()
@@ -15,58 +16,67 @@ const ClientDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <header className="dashboard-header">
-        <div className="dashboard-nav">
-          <Link to="/dashboard/client" className="dashboard-logo">
-            <img src="/Linkup lo.png" alt="Linkup" className="logo-image" />
-          </Link>
-          
-          {/* Bouton hamburger pour mobile */}
-          <button 
-            className="mobile-menu-toggle"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          
-          <nav className={`dashboard-menu ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-            <Link 
-              to="/dashboard/client" 
-              className="nav-item active"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              🏠 Accueil
-            </Link>
-            <button 
-              onClick={() => {
-                document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })
-                setIsMobileMenuOpen(false)
-              }}
-              className="nav-item nav-button"
-            >
-              🔍 Services
-            </button>
-            <Link 
-              to="/reservations" 
-              className="nav-item"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              📅 Mes Réservations
-            </Link>
-          </nav>
-          
-          <div className="user-menu">
+      <header className="modern-header">
+        <div className="header-layout">
+          {/* À gauche : Nom + Rôle dans une carte élégante */}
+          <div className="user-card">
             <div className="user-info">
-              <span className="user-name">{profile?.full_name || 'Client'}</span>
-              <span className="user-role">Client</span>
+              <span className="user-name">{profile?.full_name || 'Hermann'}</span>
+              <span className="user-role">CLIENT</span>
             </div>
-            <button onClick={handleSignOut} className="sign-out-btn">
+          </div>
+          
+          {/* Au centre : Logo Linkup */}
+          <div className="center-logo">
+            <Link to="/dashboard/client" className="logo-link">
+              <img src="/Linkup lo.png" alt="Linkup" className="header-logo-img" />
+            </Link>
+          </div>
+          
+          {/* À droite : Bouton Déconnexion moderne */}
+          <div className="logout-section">
+            <button onClick={handleSignOut} className="modern-logout-btn">
               Déconnexion
             </button>
           </div>
         </div>
+        
+        {/* Menu hamburger en bas à gauche */}
+        <button 
+          className="hamburger-menu"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        {/* Menu mobile */}
+        <nav className={`mobile-nav ${isMobileMenuOpen ? 'open' : ''}`}>
+          <Link 
+            to="/dashboard/client" 
+            className="nav-link active"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            🏠 Accueil
+          </Link>
+          <button 
+            onClick={() => {
+              document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })
+              setIsMobileMenuOpen(false)
+            }}
+            className="nav-link nav-btn"
+          >
+            🔍 Services
+          </button>
+          <Link 
+            to="/reservations" 
+            className="nav-link"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            📅 Mes Réservations
+          </Link>
+        </nav>
       </header>
 
       <main className="dashboard-main">

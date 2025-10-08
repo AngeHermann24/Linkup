@@ -207,7 +207,8 @@ const ProviderRegistration: React.FC<ProviderRegistrationProps> = ({ onComplete 
   return (
     <div className="provider-registration">
       <div className="registration-header">
-        <h2>Inscription Prestataire</h2>
+        <h2>Devenir Prestataire Linkup</h2>
+        <p className="subtitle">Rejoignez notre réseau de professionnels qualifiés</p>
         <div className="step-indicator">
           <div className={`step ${step >= 1 ? 'active' : ''}`}>1</div>
           <div className={`step ${step >= 2 ? 'active' : ''}`}>2</div>
@@ -290,17 +291,18 @@ const ProviderRegistration: React.FC<ProviderRegistrationProps> = ({ onComplete 
                 type="file"
                 id="profilePhoto"
                 accept="image/jpeg,image/png,image/jpg"
+                capture="user"
                 onChange={(e) => handleFileChange('profilePhoto', e.target.files?.[0] || null)}
                 className="file-input"
               />
-              <label htmlFor="profilePhoto" className="file-label">
+              <label htmlFor="profilePhoto" className="file-label mobile-friendly">
                 <div className="upload-icon">📷</div>
                 <div className="upload-text">
                   {formData.profilePhoto ? (
-                    <span className="file-selected">✅ {formData.profilePhoto.name}</span>
+                    <span className="file-selected">✅ Photo sélectionnée</span>
                   ) : (
                     <>
-                      <span>Cliquez pour choisir une photo</span>
+                      <span>📱 Touchez pour prendre/choisir une photo</span>
                       <small>JPG, PNG - Max 5MB</small>
                     </>
                   )}
@@ -343,17 +345,18 @@ const ProviderRegistration: React.FC<ProviderRegistrationProps> = ({ onComplete 
                 type="file"
                 id="idDocument"
                 accept="image/jpeg,image/png,image/jpg,application/pdf"
+                capture="environment"
                 onChange={(e) => handleFileChange('idDocument', e.target.files?.[0] || null)}
                 className="file-input"
               />
-              <label htmlFor="idDocument" className="file-label">
+              <label htmlFor="idDocument" className="file-label mobile-friendly">
                 <div className="upload-icon">🆔</div>
                 <div className="upload-text">
                   {formData.idDocument ? (
-                    <span className="file-selected">✅ {formData.idDocument.name}</span>
+                    <span className="file-selected">✅ Document sélectionné</span>
                   ) : (
                     <>
-                      <span>Cliquez pour choisir votre pièce d'identité</span>
+                      <span>📱 Touchez pour prendre/choisir votre ID</span>
                       <small>JPG, PNG, PDF - Max 5MB</small>
                     </>
                   )}
