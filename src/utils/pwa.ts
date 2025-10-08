@@ -89,6 +89,59 @@ export const isPWAInstalled = (): boolean => {
   return isStandalone || isInWebAppiOS || isInWebAppChrome
 }
 
+// Gestionnaire d'installation PWA
+let deferredPrompt: any = null
+
+export const initPWAInstallPrompt = (): void => {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('🚀 PWA: Installation disponible')
+    // Empêcher l'affichage automatique
+    e.preventDefault()
+    // Stocker l'événement pour l'utiliser plus tard
+    deferredPrompt = e
+    
+    // Déclencher un événement personnalisé
+    window.dispatchEvent(new CustomEvent('pwa-installable'))
+  })
+  
+  window.addEventListener('appinstalled', () => {
+    console.log('✅ PWA: Application installée avec succès')
+    deferredPrompt = null
+    
+    // Déclencher un événement personnalisé
+    window.dispatchEvent(new CustomEvent('pwa-installed'))
+  })
+}
+
+export const showInstallPrompt = async (): Promise<boolean> => {
+  if (!deferredPrompt) {
+    console.log('❌ PWA: Aucune installation disponible')
+    return false
+  }
+  
+  try {
+    // Afficher le prompt d'installation
+    deferredPrompt.prompt()
+    
+    // Attendre la réponse de l'utilisateur
+    const { outcome } = await deferredPrompt.userChoice
+    
+    console.log(`🎯 PWA: Choix utilisateur: ${outcome}`)
+    
+    // Nettoyer la référence
+    deferredPrompt = null
+    
+    return outcome === 'accepted'
+  } catch (error) {
+    console.error('❌ PWA: Erreur installation:', error)
+    return false
+  }
+}
+
+export const isPWAInstallable = (): boolean => {
+  return deferredPrompt !== null
+}
+
 export const getPWADisplayMode = (): string => {
   if (window.matchMedia('(display-mode: standalone)').matches) {
     return 'standalone'

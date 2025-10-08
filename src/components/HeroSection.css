@@ -307,6 +307,7 @@
 
 .stat-label {
   color: #6b7280;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
@@ -372,4 +373,179 @@
 /* Ajouter l'animation de pulsation au bouton play */
 .play-button {
   animation: pulse3d 2s ease-in-out infinite;
+}
+
+/* BULLES FLOTTANTES VSL - MASQUÉES */
+.floating-cards {
+  display: none;
+}
+
+.service-card {
+  position: absolute;
+  background: transparent;
+  border-radius: 25px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1f2937;
+  min-width: 100px;
+  animation: bubbleFloat 8s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: scale(1.1) translateY(-5px);
+}
+
+.service-card .service-icon {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Positionnement des bulles */
+.card-1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.card-2 {
+  top: 25%;
+  right: 8%;
+  animation-delay: 1s;
+}
+
+.card-3 {
+  top: 45%;
+  left: 2%;
+  animation-delay: 2s;
+}
+
+.card-4 {
+  top: 65%;
+  right: 12%;
+  animation-delay: 3s;
+}
+
+.card-5 {
+  top: 80%;
+  left: 15%;
+  animation-delay: 4s;
+}
+
+.card-6 {
+  top: 15%;
+  left: 50%;
+  animation-delay: 5s;
+}
+
+.card-7 {
+  top: 70%;
+  right: 45%;
+  animation-delay: 6s;
+}
+
+/* Animation flottante des bulles */
+@keyframes bubbleFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-20px) rotate(-2deg);
+  }
+}
+
+/* Responsive mobile - masquer les bulles */
+@media (max-width: 768px) {
+  .floating-cards {
+    display: none;
+  }
+}
+
+/* CONTENEUR VIDÉO AVEC FOND */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 20px;
+}
+
+.play-button {
+  width: 80px;
+  height: 80px;
+  background: rgba(59, 130, 246, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.play-button:hover {
+  background: rgba(59, 130, 246, 1);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.play-icon {
+  color: white;
+  font-size: 2rem;
+  margin-left: 4px;
+}
+
+.video-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  text-align: center;
+  z-index: 3;
+}
+
+.video-overlay h3 {
+  color: #1f2937;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.video-overlay p {
+  color: #6b7280;
+  font-size: 0.9rem;
 }

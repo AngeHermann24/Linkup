@@ -11,7 +11,7 @@ import ProviderSettings from './pages/ProviderSettings'
 
 import ProtectedRoute from './components/ProtectedRoute'
 import PWAInstaller from './components/PWAInstaller'
-import { registerServiceWorker, trackPWAUsage } from './utils/pwa'
+import { registerServiceWorker, trackPWAUsage, initPWAInstallPrompt } from './utils/pwa'
 import './App.css'
 import PlanningPage from './pages/PlanningPage'
 import ServicesPage from './pages/ServicesPage'
@@ -52,6 +52,9 @@ function App() {
     
     // Tracker l'utilisation PWA
     trackPWAUsage()
+    
+    // Initialiser le gestionnaire d'installation PWA
+    initPWAInstallPrompt()
   }, [])
 
   return (
