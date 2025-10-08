@@ -4,12 +4,20 @@
   margin: 0 auto;
   background: #f8fafc;
   min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Mobile: Container plus compact */
+/* Mobile: Container plus compact et centré */
 @media (max-width: 768px) {
   .services-grid-container {
     padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -173,6 +181,15 @@
   margin-bottom: 2rem;
 }
 
+/* Mobile: Catégories plus compactes */
+@media (max-width: 768px) {
+  .category-filters {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
 .category-btn {
   display: flex;
   align-items: center;
@@ -190,6 +207,17 @@
   min-height: 80px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile: Boutons catégories plus petits */
+@media (max-width: 768px) {
+  .category-btn {
+    padding: 0.75rem;
+    min-height: 60px;
+    font-size: 0.875rem;
+    border-radius: 12px;
+    gap: 0.25rem;
+  }
 }
 
 .category-btn:hover {
@@ -332,25 +360,35 @@
   .services-grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.5rem !important;
+    gap: 0.75rem !important;
     padding: 1rem !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    justify-items: center !important;
+    max-width: 100% !important;
   }
   
   .service-card {
     position: relative !important;
     width: 100% !important;
     height: auto !important;
-    min-height: 120px !important;
-    margin: 0 !important;
+    min-height: 140px !important;
+    margin: 0 auto !important;
     transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 1rem !important;
+    box-sizing: border-box !important;
   }
   
-  /* Dashboard client: gap plus petit pour plus de cartes */
+  /* Dashboard client: gap optimisé pour centrage */
   .dashboard-content .services-grid {
-    gap: 0.3rem !important;
-    padding: 0.5rem !important;
+    gap: 0.75rem !important;
+    padding: 1rem !important;
+    justify-content: center !important;
   }
 }
 
@@ -358,18 +396,27 @@
 @media (max-width: 480px) {
   .services-grid {
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.3rem !important;
-    padding: 0.5rem !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem !important;
+    justify-items: center !important;
   }
   
   .service-card {
-    min-height: 100px !important;
-    font-size: 0.8rem !important;
+    min-height: 120px !important;
+    font-size: 0.85rem !important;
+    padding: 0.75rem !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
   }
   
   .dashboard-content .services-grid {
-    gap: 0.2rem !important;
-    padding: 0.3rem !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem !important;
+    justify-content: center !important;
   }
   
   /* Dashboard client: optimisations ultra-compactes */

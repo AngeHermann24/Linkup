@@ -186,8 +186,63 @@
 /* Mobile: Description plus compacte */
 @media (max-width: 768px) {
   .hero-description {
-    font-size: 1rem;
-    margin: 0 0 2rem 0;
+    font-size: 0.9rem;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.4;
+    opacity: 0.8;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* SECTION SERVICES DISPONIBLES */
+.services-section {
+  padding: 4rem 2rem;
+  background: white;
+  position: relative;
+}
+
+.services-indicator {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.indicator-line {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+  margin: 0 auto 1rem;
+  border-radius: 2px;
+}
+
+.indicator-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  letter-spacing: -0.02em;
+}
+
+/* Mobile: Services Disponibles plus compact */
+@media (max-width: 768px) {
+  .services-section {
+    padding: 2rem 1rem;
+  }
+  
+  .services-indicator {
+    margin-bottom: 2rem;
+  }
+  
+  .indicator-line {
+    width: 40px;
+    height: 2px;
+    margin-bottom: 0.75rem;
+  }
+  
+  .indicator-text {
+    font-size: 1.5rem;
+    font-weight: 600;
   }
 }
 
